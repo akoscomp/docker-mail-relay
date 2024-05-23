@@ -1,16 +1,16 @@
 Postfix Mail Relay
 ======================
 
+source: https://github.com/akoscomp/docker-mail-relay
+
 Contains:
 
 * Postfix, running in a simple relay mode
 * RSyslog
 
-Processes are managed by supervisord, including cronjobs
-
 The container provides a simple proxy relay for environments like Amazon VPC where you may have private servers with no Internet connection
-and therefore with no access to external mail relays (e.g. Amazon SES, SendGrid and others). You need to supply the container with your 
-external mail relay address and credentials. The configuration is tested with Amazon SES.
+and therefore with no access to external mail relays (e.g. smtp2go, SendGrid and others). You need to supply the container with your 
+external mail relay address and credentials. The configuration is tested with smtp2go.
 
 
 Exports
