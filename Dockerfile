@@ -1,9 +1,11 @@
-FROM alpine:3.12
-MAINTAINER Uri Savelchev <alterrebe@gmail.com>
+FROM alpine:latest
+LABEL MAINTAINER="Akos NAGY<nagy.akos@libreoffice.ro>"
 
 # Packages: update
-RUN apk -U add postfix ca-certificates libsasl cyrus-sasl-plain cyrus-sasl-login py-pip supervisor rsyslog
-RUN pip install j2cli
+RUN apk -U add postfix ca-certificates libsasl cyrus-sasl-login py-pip supervisor rsyslog acf-openssl busybox-extras
+RUN rm /usr/lib/python*/EXTERNALLY-MANAGED && \
+    python3 -m ensurepip && \
+    pip3 install jinjanator
 
 # Add files
 ADD conf /root/conf
@@ -17,6 +19,8 @@ ADD conf/supervisor-all.ini /etc/supervisor.d/
 # Runner
 ADD run.sh /root/run.sh
 RUN chmod +x /root/run.sh
+
+#RUN ln -sf /dev/stdout /var/log/mail.log
 
 # Declare
 EXPOSE 25

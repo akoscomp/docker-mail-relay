@@ -1,0 +1,16 @@
+services:
+  smtp:
+    image: akoscomp/postfix-relay
+    ports:
+      - 2525:25
+    environment:
+      RELAY_HOST_NAME: smtp.example.com
+      EXT_RELAY_HOST: "mail.smtp2go.com"
+      EXT_RELAY_PORT: 2525
+      SMTP_LOGIN: "AKIA*********"
+      SMTP_PASSWORD: "*********************************"
+      USE_TLS: "yes"
+      TLS_VERIFY: "may"
+      RAW_CONFIG: |
+        # custom config
+        always_bcc = bcc@example.com

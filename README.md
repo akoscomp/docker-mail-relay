@@ -27,7 +27,6 @@ Variables
 * `EXT_RELAY_PORT=25`: External relay TCP port
 * `SMTP_LOGIN=`: Login to connect to the external relay (required, otherwise the container fails to start)
 * `SMTP_PASSWORD=`: Password to connect to the external relay (required, otherwise the container fails to start)
-* `USE_TLS=`: Whether the external relay requires TLS. Might be "yes" or "no". Default: no.
 * `TLS_VERIFY=`: Trust level for checking the remote side cert. (none, may, encrypt, dane, dane-only, fingerprint, verify, secure). Default: may.
 * `INBOUND_TLS=`: Whether the Postfix supports TLS on inbound connections. Might be "yes" or "no". Default: yes.
 * `RAW_CONFIG=`: Possiblity to add raw postfix configuration parameters, use with care.
@@ -37,24 +36,21 @@ Example
 
 Launch Postfix container:
 
-    $ docker run -d -h relay.example.com --name="mailrelay" -e SMTP_LOGIN=myLogin -e SMTP_PASSWORD=myPassword -p 25:25 alterrebe/postfix-relay
+    $ docker run -d -h relay.example.com --name="mailrelay" -e SMTP_LOGIN=myLogin -e SMTP_PASSWORD=myPassword -p 25:25 akoscomp/postfix-relay
 
 
 Running with Docker Compose:
 
 ```yaml
-version: "3.4"
-
 services:
   smtp:
-    image: alterrebe/postfix-relay
+    image: akoscomp/postfix-relay
     environment:
       RELAY_HOST_NAME: smtp.example.com
-      EXT_RELAY_HOST: "email-smtp.eu-west-1.amazonaws.com"
-      EXT_RELAY_PORT: 587
+      EXT_RELAY_HOST: "mail.smtp2go.com"
+      EXT_RELAY_PORT: 2525
       SMTP_LOGIN: "AKIA*********"
       SMTP_PASSWORD: "*********************************"
-      USE_TLS: "yes"
       TLS_VERIFY: "may"
       RAW_CONFIG: |
         # custom config
